@@ -117,8 +117,8 @@ def train_word_embedding(config_path: str):
     cweid = config.dataset.name
     root = config.data_folder
     #train_json = f"{root}/{cweid}/train.json"
-    train_path = "/home/Dataset/msr/dt_3/cfg/novul"
-    train_path2 = "/home/Dataset/msr/dt_3/cfg/vul"
+    train_path = "/home/Dataset/msr/new_slice/vul_complete"
+    train_path2 = "/home/Dataset/msr/new_slice/novul_complete"
     paths2=glob.glob(train_path2+'/*')
     #with open(train_json, "r") as f:
         #paths = json.load(f)
@@ -153,7 +153,7 @@ def train_word_embedding(config_path: str):
     ) if config.num_workers == -1 else config.num_workers
     model = Word2Vec(sentences=tokens, min_count=3, seed=64, vector_size=config.gnn.embed_size,
                      max_vocab_size=config.dataset.token.vocabulary_size, workers=num_workers, sg=1)
-    model.wv.save("/home/Dataset/msr/dt_3/w2v_cfg.wv")
+    model.wv.save("/home/Dataset/msr/dt_3/w2v_com.wv")
 
 
 def load_wv(config_path: str):
