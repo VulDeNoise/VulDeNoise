@@ -83,14 +83,16 @@ def process_parallel(path: str, split_token: bool):
     try:
         pdg = nx.drawing.nx_pydot.read_dot(path)
         for index, node in enumerate(pdg.nodes()):
-                node_index[node] = index
-                try:
-                    label = pdg.nodes[node]['label'][1:-1]
-                except:
-                    continue
-                code = label.partition(',')[2]
-                for token in tokenize_code_line(code):
-                    tokens_list.append(token)
+            token_line = []
+            node_index[node] = index
+            try:
+                label = pdg.nodes[node]['label'][1:-1]
+            except:
+                continue
+            code = label.partition(',')[2]
+            for token in tokenize_code_line(code):
+                token_line.append(token)
+            tokens_list.append(token_line)
     except:
         pass
     #for ln in xfg:
@@ -117,8 +119,9 @@ def train_word_embedding(config_path: str):
     cweid = config.dataset.name
     root = config.data_folder
     #train_json = f"{root}/{cweid}/train.json"
-    train_path = "/home/Dataset/msr/new_slice/vul_complete"
-    train_path2 = "/home/Dataset/msr/new_slice/novul_complete"
+    train_path = "/home/DT/com_pdg/0_novul"
+    train_path2 = "/home/DT/com_pdg/1_vul"
+   
     paths2=glob.glob(train_path2+'/*')
     #with open(train_json, "r") as f:
         #paths = json.load(f)
@@ -145,15 +148,15 @@ def train_word_embedding(config_path: str):
     #     if token == []:
     #         cnt+=1
     # print(cnt)
-    # for token_l in tokens:
-    #     tokens_list.extend(token_l)
+    for token_l in tokens:
+        tokens_list.extend(token_l)
     print("training w2v...")
-    print(len(tokens))
+    print(len(tokens_list))
     num_workers = cpu_count(
     ) if config.num_workers == -1 else config.num_workers
-    model = Word2Vec(sentences=tokens, min_count=3, seed=64, vector_size=config.gnn.embed_size,
+    model = Word2Vec(sentences=tokens_list, min_count=3,seed=202406, vector_size=config.gnn.embed_size,
                      max_vocab_size=config.dataset.token.vocabulary_size, workers=num_workers, sg=1)
-    model.wv.save("/home/Dataset/msr/dt_3/w2v_com.wv")
+    model.wv.save("/home/vul_new.wv")
 
 
 def load_wv(config_path: str):
