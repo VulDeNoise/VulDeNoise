@@ -4,9 +4,11 @@
 
 ## Dataset
 
-The Dataset we used in the paper:
+The New Big-Vul Dataset we used in the paper:
 Wenbo Wang, Tien N. Nguyen, Shaohua Wang, Yi Li, Jiyuan Zhang, and Aashish Yadavally, " DeepVD: Toward Class-Separation Features for Neural Network Vulnerability Detection", in Proceedings of the 45th ACM/IEEE International Conference on Software Engineering (ACM/IEEE ICSE 2023), May 14-20, 2023. IEEE CS Press, 2023.
 https://drive.google.com/drive/folders/1VPUGYjrhIEXYOdPjYGdwYrHfvGb4LL7O?usp=sharing
+
+And the old version is: https://drive.google.com/file/d/1-0VhnHBp9IGh90s2wCNjeCMuy70HPl8X/view?usp=sharing
 
 ## Requirement
 
