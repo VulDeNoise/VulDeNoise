@@ -30,7 +30,7 @@ Please check all requirements in the requirement.txt
 5.Run preprocess file folder ```joern_to_devign.py``` to get the data required by the VD model.
 
 
-## Differential Training
+## Multi-View Learning
 1. All codes in ```VulDenosie ``` file folder.
  
 2. For vulnerability detection model training, you need to use ```train_model.py ```. 
