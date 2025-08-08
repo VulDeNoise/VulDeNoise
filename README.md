@@ -31,7 +31,7 @@ Please check all requirements in the requirement.txt
 
 
 ## Differential Training
-1. 
+1. All codes in ```VulDenosie ``` file folder.
  
 2. For vulnerability detection model training, you need to use ```train_model.py ```. 
  
@@ -47,7 +47,8 @@ Please check all requirements in the requirement.txt
 
 3.You can combine ```denoising_metrics.py ``` and ```train_model.py ``` to get new VD model detection performance.
 
-
+## Cases
+We provide some noisy cases in ```invalid_modification_noises.txt```
 
 
 ---
