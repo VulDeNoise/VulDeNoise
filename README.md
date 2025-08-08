@@ -29,18 +29,21 @@ Please check all requirements in the requirement.txt
 
 
 ## Differential Training
-1. All codes in ```DT ``` file folder.
+1. 
  
-2. You need to modify ```data_loader/dataset.py ```.Pay attention to split the training set and test set(like train_set.txt/test.txt to provide data path)
+2. For vulnerability detection model training, you need to use ```train_model.py ```. 
  
-3. You need to modify ```main.py ``` and ```trainer.py ``` like some input , output paths or models. First you need generate loss, please use train2 func, when you evaulate please use train func
+3. For generating loss vectors, you can use ```loss_vec.py ```
+   
+4. We also provied a script for 5-fold cross validation ```5_cross_val.py ```
  
-4. Run ```main.py ``` to train or test.
 
 ## Outlier Detection
-1.Please run outliers.py to detect noise samples, you need to modify some paths.
+1.For outlier detection, you can use ```outlier.py ```.
 
-2.mykmeans.py provides a visualization with labeled clustering.
+2.We also provie a script ```denoising_metrics.py ``` to get the denoising performance and remained noises.
+
+3.You can combine ```denoising_metrics.py ``` and ```train_model.py ``` to get new VD model detection performance.
 
 
 
