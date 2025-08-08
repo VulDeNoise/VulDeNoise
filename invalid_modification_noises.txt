@@ -1,0 +1,127 @@
+/* returns 0 on OK or -1 on eof *************************************/
+ long vorbis_book_decodevs_add(codebook *book,ogg_int32_t *a,
+-			      oggpack_buffer *b,int n,int point){
++                              oggpack_buffer *b,int n,int point){
+   if(book->used_entries>0){
+     int step=n/book->dim;
+     ogg_int32_t *v = book->dec_buf;//(ogg_int32_t *)alloca(sizeof(*v)*book->dim);
+@@ -842,14 +842,14 @@
+     for (j=0;j<step;j++){
+       if(decode_map(book,b,v,point))return -1;
+       for(i=0,o=j;i<book->dim;i++,o+=step)
+-	a[o]+=v[i];
++        a[o]+=v[i];
+     }
+   }
+   return 0;
+ }
+
+diff --git a/src/isomedia/box_code_base.c b/src/isomedia/box_code_base.c
+index 2cb81ef3f2..0f5b40f7fd 100644
+--- a/src/isomedia/box_code_base.c
++++ b/src/isomedia/box_code_base.c
+@@ -632,7 +632,7 @@ GF_Err urn_Read(GF_Box *s, GF_BitStream *bs)
+ 
+ 	//then get the break
+ 	i = 0;
+-	while ( (tmpName[i] != 0) && (i < to_read) ) {
++	while ( (i < to_read) && (tmpName[i] != 0) ) {
+ 		i++;
+ 	}
+
+@@ -4157,9 +4157,9 @@ static void oinf_entry_dump(GF_OperatingPointsInformation *ptr, FILE * trace)
+ 		fprintf(trace, " maxPicWidth=\"%u\" maxPicHeight=\"%u\"", op->maxPicWidth, op->maxPicHeight);
+ 		fprintf(trace, " maxChromaFormat=\"%u\" maxBitDepth=\"%u\"", op->maxChromaFormat, op->maxBitDepth);
+ 		fprintf(trace, " frame_rate_info_flag=\"%u\" bit_rate_info_flag=\"%u\"", op->frame_rate_info_flag, op->bit_rate_info_flag);
+-		if (op->frame_rate_info_flag) 
++		if (op->frame_rate_info_flag)
+ 			fprintf(trace, " avgFrameRate=\"%u\" constantFrameRate=\"%u\"", op->avgFrameRate, op->constantFrameRate);
+-		if (op->bit_rate_info_flag) 
++		if (op->bit_rate_info_flag)
+ 			fprintf(trace, " maxBitRate=\"%u\" avgBitRate=\"%u\"", op->maxBitRate, op->avgBitRate);
+ 		fprintf(trace, "/>\n");
+ 	}
+@@ -4261,14 +4261,14 @@ static void nalm_dump(FILE * trace, char *data, u32 data_size)
+ 		fprintf(trace, "</NALUMap>\n");
+ 		return;
+ 	}
+-	
++
+ 	bs = gf_bs_new(data, data_size, GF_BITSTREAM_READ);
+ 	gf_bs_read_int(bs, 6);
+ 	large_size = gf_bs_read_int(bs, 1);
+ 	rle = gf_bs_read_int(bs, 1);
+ 	entry_count = gf_bs_read_int(bs, large_size ? 16 : 8);
+ 	fprintf(trace, "<NALUMap rle=\"%d\" large_size=\"%d\">\n", rle, large_size);
+-	
++
+ 	while (entry_count) {
+ 		u32 ID;
+ 		fprintf(trace, "<NALUMapEntry ");
+@@ -4338,7 +4338,7 @@ GF_Err sgpd_dump(GF_Box *a, FILE * trace)
+ 		case GF_ISOM_SAMPLE_GROUP_TRIF:
+ 			trif_dump(trace, (char *) ((GF_DefaultSampleGroupDescriptionEntry*)entry)->data,  ((GF_DefaultSampleGroupDescriptionEntry*)entry)->length);
+ 			break;
+-			
++
+ 		case GF_ISOM_SAMPLE_GROUP_NALM:
+ 			nalm_dump(trace, (char *) ((GF_DefaultSampleGroupDescriptionEntry*)entry)->data,  ((GF_DefaultSampleGroupDescriptionEntry*)entry)->length);
+ 			break;
+@@ -4507,7 +4507,7 @@ GF_Err tenc_dump(GF_Box *a, FILE * trace)
+ 		fprintf(trace, "\"  KID=\"");
+ 	}
+ 	dump_data_hex(trace, (char *) ptr->KID, 16);
+-	if (ptr->version) 
++	if (ptr->version)
+ 		fprintf(trace, "\" crypt_byte_block=\"%d\" skip_byte_block=\"%d", ptr->crypt_byte_block, ptr->skip_byte_block);
+ 	fprintf(trace, "\">\n");
+ 	gf_isom_box_dump_done("TrackEncryptionBox", a, trace);
+
+
+diff --git a/libr/bin/p/bin_dex.c b/libr/bin/p/bin_dex.c
+index 2923ba73287d7..601b28a5d71f3 100644
+--- a/libr/bin/p/bin_dex.c
++++ b/libr/bin/p/bin_dex.c
+@@ -1322,7 +1322,7 @@ static void parse_class(RBinFile *binfile, RBinDexObj *bin, RBinDexClass *c,
+ 	    c->interfaces_offset <
+ 		    bin->header.data_offset + bin->header.data_size) {
+ 		p = r_buf_get_at (binfile->buf, c->interfaces_offset, NULL);
+-		int types_list_size = r_read_le32(p);
++		int types_list_size = r_read_le32 (p);
+ 		if (types_list_size < 0 || types_list_size >= bin->header.types_size ) {
+ 			return;
+ 		}
+
+
+diff --git a/coders/psd.c b/coders/psd.c
+index a29f6ac3ee1..88a63e577ee 100644
+--- a/coders/psd.c
++++ b/coders/psd.c
+@@ -1323,10 +1323,10 @@ static MagickBooleanType ReadPSDChannel(Image *image,
+       if ((layer_info->channel_info[channel].type != -2) ||
+           (layer_info->mask.flags > 2) || ((layer_info->mask.flags & 0x02) &&
+            (IsStringTrue(option) == MagickFalse)))
+-      {
+-        SeekBlob(image,layer_info->channel_info[channel].size-2,SEEK_CUR);
+-        return(MagickTrue);
+-      }
++        {
++          SeekBlob(image,layer_info->channel_info[channel].size-2,SEEK_CUR);
++          return(MagickTrue);
++        }
+       mask=CloneImage(image,layer_info->mask.page.width,
+         layer_info->mask.page.height,MagickFalse,exception);
+       if (mask != (Image *) NULL)
+
+diff --git a/coders/wpg.c b/coders/wpg.c
+index 0dfdc47f0b3..782f25e827f 100644
+--- a/coders/wpg.c
++++ b/coders/wpg.c
+@@ -1311,7 +1311,6 @@ static Image *ReadWPGImage(const ImageInfo *image_info,
+               status=SetImageExtent(image,image->columns,image->rows,exception);
+               if (status == MagickFalse)
+                 break;
+-
+               if ((image->colors == 0) && (bpp != 24))
+                 {
+                   size_t
